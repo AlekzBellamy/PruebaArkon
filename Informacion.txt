@@ -1,0 +1,51 @@
+Conociendo Docker
+
+obteniendo imagenes existentes el comando apoya a descargarla 
+
+	docker pull mysql  
+
+obteniendo las imagenes descargadas 
+	docker images
+
+corriendo una instancia de la imagen
+	docker run
+		-d --> ejecucion en segundo plano
+		-p  A:B --> A-> puerto de salida exterior B - puerto interno
+		--name --> un nombre al contenedor
+		-e MYSQL_ROOT_PASSWORD --> ? parece ser un parametropropio de la iamgen ,, averiguando
+		
+	 docker run -d -p 13306:3306 --name mysql_prueba -e MYSQL_ROOT_PASSWORD=123456789A mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+	 
+	 
+	 
+Conociendo Python
+	import shapefile
+
+	shape = shapefile.Reader('C:\\Users\\nodez\\Downloads\\prueba_fetchdata_metrobus\\prueba_fetchdata_metrobus\\prueba_fetchdata_metrobus.shp')
+	
+	feature = shape.shapeRecords()[0]
+	
+	first = feature.shape.__geo_interface__
+	
+	print(first)
+	
+	
+	shape2 = shapefile.Reader('C:\\Users\\nodez\\Downloads\\prueba_fetchdata_metrobus\\prueba_fetchdata_metrobus\\prueba_fetchdata_metrobus.shx')
+	
+	feature2 = shape2.shapeRecords()[0]
+	
+	first2 = feature2.shape.__geo_interface__
+	
+	print(first2)
+	
+	
+import urllib
+url = 'https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=61fd8d85-9598-4dfe-890b-2780ed26efc8&limit=1000'  
+fileobj = urllib.urlopen(url)
+print fileobj.read()
+
+
+
+http://localhost:8080/api/alcaldias
+http://localhost:8080/api/unidades/170
+http://localhost:8080/api/unidades/

@@ -1,13 +1,13 @@
-package com.test.arkon.core;
+package com.test.arkon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppmetrobusApplication {
+public class AppmetrobusdataApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppmetrobusApplication.class, args);
+		SpringApplication.run(AppmetrobusdataApplication.class, args);
 	}
 
 }

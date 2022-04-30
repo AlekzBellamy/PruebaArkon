@@ -2,7 +2,7 @@ package com.test.arkon.util.enums;
 
 public enum EstatusProceso {
 
-	CORRECTO(1, "CORRECTO"), INCORRECTO(1, "INCORRECTO");
+	CORRECTO(1, "CORRECTO"), INCORRECTO(2, "INCORRECTO");
 
 	private int id;
 	private String descripcion;

@@ -72,7 +72,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Metodo para hacer llamado del consumo de CDMX DATA Unidades
+	 * Metodo para hacer llamado del consumo de CDMX DATA Alcaldias
 	 * 
 	 * @return
 	 */
@@ -86,6 +86,25 @@ public class Controller {
 
 		} catch (Exception e) {
 			LOG.error("Error al registrarAlcaldias DATA CDMX", e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	/**
+	 * Metodo para hacer llamado del consumo de CDMX DATA Unidades
+	 * 
+	 * @return
+	 */
+
+	@GetMapping(value = "/altaUnidades")
+	public ResponseEntity<List<DataMbCdmxUnidadUbicacion>> persistirUnidades() {
+		try {
+			List<DataMbCdmxUnidadUbicacion> unidadesRegistrados = busDataService.almacenamientoUnidades();
+			LOG.info("unidades DATA CDMX unidadesRegistrados : {}", unidadesRegistrados);
+			return new ResponseEntity<>(unidadesRegistrados, HttpStatus.OK);
+
+		} catch (Exception e) {
+			LOG.error("Error al registrarUnidades DATA CDMX", e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

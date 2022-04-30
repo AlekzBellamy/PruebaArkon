@@ -40,6 +40,9 @@ public class DataMbCdmxAlcaldia {
 
 	@Column(name = "id_fetch_alcaldia")
 	private long id_fetch_alcaldia;
+	
+	@Column(name = "estatus")
+	private int estatus;
 
 	public long get_id() {
 		return _id;
@@ -121,11 +124,20 @@ public class DataMbCdmxAlcaldia {
 		this.id_fetch_alcaldia = id_fetch_alcaldia;
 	}
 
+	public int getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
+	}
+
 	@Override
 	public String toString() {
 		return "DataMbCdmxAlcaldia [_id=" + _id + ", id=" + id + ", nomgeo=" + nomgeo + ", cve_mun=" + cve_mun
 				+ ", cve_ent=" + cve_ent + ", cvegeo=" + cvegeo + ", geo_point_2d=" + geo_point_2d + ", geo_shape="
-				+ geo_shape + ", municipio=" + municipio + ", id_fetch_alcaldia=" + id_fetch_alcaldia + "]";
+				+ geo_shape + ", municipio=" + municipio + ", id_fetch_alcaldia=" + id_fetch_alcaldia + ", estatus="
+				+ estatus + "]";
 	}
 
 }

@@ -17,6 +17,11 @@ corriendo una instancia de la imagen
 	 docker run -d -p 13306:3306 --name mysql_prueba -e MYSQL_ROOT_PASSWORD=123456789A mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 	 
 	 
+	 userapp
+	 12345678A
+	 
+	 userconsulta
+	 12345678A
 	 
 Conociendo Python
 	import shapefile
@@ -49,3 +54,10 @@ print fileobj.read()
 http://localhost:8080/api/alcaldias
 http://localhost:8080/api/unidades/170
 http://localhost:8080/api/unidades/
+
+test lectura api cdmx
+http://localhost:8081/data/consultaAlcaldias
+http://localhost:8081/data/consultaUnidades
+http://localhost:8081/data/altaAlcaldias
+http://localhost:8081/data/altaUnidades
+

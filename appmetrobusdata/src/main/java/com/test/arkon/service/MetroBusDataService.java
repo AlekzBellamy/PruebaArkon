@@ -2,13 +2,6 @@ package com.test.arkon.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-
-/**
- * Servicio para consumir información que proporciona los centros de datos de CDMX
- * @author nodez
- *
- */
 
 import java.util.List;
 
@@ -24,12 +17,23 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.test.arkon.model.DataMbCdmxAlcaldia;
 import com.test.arkon.model.DataMbCdmxUnidadUbicacion;
 import com.test.arkon.model.FetchDataAlcaldia;
+import com.test.arkon.model.FetchDataUbicacionUnidad;
 import com.test.arkon.model.ResponseDataMbCdmx;
 import com.test.arkon.repository.AlcaldiaDataRepository;
 import com.test.arkon.repository.FetchAlcaldiaRepository;
+import com.test.arkon.repository.FetchUnidadUbicacionRepository;
+import com.test.arkon.repository.UnidadDataRepository;
 import com.test.arkon.util.constantes.Constantes;
+import com.test.arkon.util.enums.Estatus;
 import com.test.arkon.util.enums.EstatusProceso;
 
+/**
+ * Servicio para consumir información que proporciona los centros de datos de
+ * CDMX
+ * 
+ * @author nodez
+ *
+ */
 @Service
 public class MetroBusDataService {
 
@@ -40,6 +44,11 @@ public class MetroBusDataService {
 	private AlcaldiaDataRepository alcaldiaDataRepository;
 	@Autowired
 	private FetchAlcaldiaRepository fetchAlcaldiaRepository;
+
+	@Autowired
+	private UnidadDataRepository unidadDataRepository;
+	@Autowired
+	private FetchUnidadUbicacionRepository fetchUnidadUbicacionRepository;
 
 	/**
 	 * Metodo para obtener los registros de alcaldias
@@ -89,7 +98,8 @@ public class MetroBusDataService {
 		try {
 			ResponseDataMbCdmx<DataMbCdmxAlcaldia> extractoAlcaldias = obtenerAlcaldiasMbCdmx();
 			LOG.info("almacenamientoAlcaldias  DATA CDMX isSuccess : {}", extractoAlcaldias.isSuccess());
-			LOG.info("almacenamientoAlcaldias  DATA CDMX extractoAlcaldias : {}", extractoAlcaldias.getResult().getRecords().size());
+			LOG.info("almacenamientoAlcaldias  DATA CDMX extractoAlcaldias : {}",
+					extractoAlcaldias.getResult().getRecords().size());
 			FetchDataAlcaldia dataAlcaldia = new FetchDataAlcaldia();
 			dataAlcaldia.setFecha_registro(new Date());
 			dataAlcaldia.setEstatus_proceso(EstatusProceso.CORRECTO.getDescripcion());
@@ -97,18 +107,55 @@ public class MetroBusDataService {
 			LOG.info("almacenamientoAlcaldias  DATA CDMX dataAlcaldia : {}", dataAlcaldia);
 			fetchAlcaldiaRepository.flush();
 			LOG.info("almacenamientoAlcaldias  DATA CDMX after flush dataAlcaldia : {}", dataAlcaldia);
-			
+
 			for (DataMbCdmxAlcaldia item : extractoAlcaldias.getResult().getRecords()) {
 				item.setId_fetch_alcaldia(dataAlcaldia.getId_fetch());
+				item.setEstatus(Estatus.ACTIVO.getId());
 			}
 			alcaldiaDataRepository.saveAll(extractoAlcaldias.getResult().getRecords());
+			alcaldiaDataRepository.bajaAlcaldiasAnteriores(dataAlcaldia.getId_fetch());
 			LOG.info("almacenamiento correcto Alcaldias de DATA CDMX");
 			return extractoAlcaldias.getResult().getRecords();
 		} catch (Exception e) {
 			FetchDataAlcaldia dataAlcaldia = new FetchDataAlcaldia();
 			dataAlcaldia.setFecha_registro(new Date());
 			dataAlcaldia.setEstatus_proceso(EstatusProceso.INCORRECTO.getDescripcion());
+			fetchAlcaldiaRepository.save(dataAlcaldia);
 			LOG.error("Error al almacenar Alcaldias de DATA CDMX", e);
+			return new ArrayList<>();
+		}
+
+	}
+
+	public List<DataMbCdmxUnidadUbicacion> almacenamientoUnidades() {
+		try {
+			ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion> extractoUnidades = obtenerUnidadesMbCdmx();
+			LOG.info("almacenamientoUnidades  DATA CDMX isSuccess : {}", extractoUnidades.isSuccess());
+			LOG.info("almacenamientoUnidades  DATA CDMX extractoUnidades : {}",
+					extractoUnidades.getResult().getRecords().size());
+
+			FetchDataUbicacionUnidad dataUbicacionUnidad = new FetchDataUbicacionUnidad();
+			dataUbicacionUnidad.setFecha_registro(new Date());
+			dataUbicacionUnidad.setEstatus_proceso(EstatusProceso.CORRECTO.getDescripcion());
+			fetchUnidadUbicacionRepository.save(dataUbicacionUnidad);
+			LOG.info("almacenamientoUnidades  DATA CDMX dataUbicacionUnidad : {}", dataUbicacionUnidad);
+			fetchUnidadUbicacionRepository.flush();
+			LOG.info("almacenamientoUnidades  DATA CDMX after flush dataUbicacionUnidad : {}", dataUbicacionUnidad);
+
+			for (DataMbCdmxUnidadUbicacion item : extractoUnidades.getResult().getRecords()) {
+				item.setId_fetch_mb(dataUbicacionUnidad.getId_fetch());
+				item.setEstatus(Estatus.ACTIVO.getId());
+			}
+			unidadDataRepository.saveAll(extractoUnidades.getResult().getRecords());
+			unidadDataRepository.bajaUnidadesAnteriores(dataUbicacionUnidad.getId_fetch());
+			LOG.info("almacenamientoUnidades correcto Unidades de DATA CDMX");
+			return extractoUnidades.getResult().getRecords();
+		} catch (Exception e) {
+			FetchDataUbicacionUnidad dataUbicacionUnidad = new FetchDataUbicacionUnidad();
+			dataUbicacionUnidad.setFecha_registro(new Date());
+			dataUbicacionUnidad.setEstatus_proceso(EstatusProceso.INCORRECTO.getDescripcion());
+			fetchUnidadUbicacionRepository.save(dataUbicacionUnidad);
+			LOG.error("almacenamientoUnidades Error al almacenar Unidades de DATA CDMX", e);
 			return new ArrayList<>();
 		}
 

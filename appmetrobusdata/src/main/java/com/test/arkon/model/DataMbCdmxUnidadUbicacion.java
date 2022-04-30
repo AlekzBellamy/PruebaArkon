@@ -15,48 +15,54 @@ public class DataMbCdmxUnidadUbicacion {
 	@Id
 	@GeneratedValue
 	private long _id;
-	
+
 	@Column(name = "id")
 	private long id;
-	
+
 	@Column(name = "date_updated")
 	private Date date_updated;
-	
+
 	@Column(name = "vehicle_id")
 	private long vehicle_id;
-	
+
 	@Column(name = "vehicle_label")
 	private long vehicle_label;
-	
+
 	@Column(name = "vehicle_current_status")
 	private long vehicle_current_status;
-	
+
 	@Column(name = "position_latitude")
 	private String position_latitude;
-	
+
 	@Column(name = "position_longitude")
 	private String position_longitude;
-	
+
 	@Column(name = "geographic_point")
 	private String geographic_point;
-	
+
 	@Column(name = "position_speed")
 	private String position_speed;
-	
+
 	@Column(name = "position_odometer")
 	private String position_odometer;
-	
+
 	@Column(name = "trip_schedule_relationship")
 	private String trip_schedule_relationship;
-	
+
 	@Column(name = "trip_id")
 	private String trip_id;
-	
+
 	@Column(name = "trip_start_date")
 	private String trip_start_date;
-	
+
 	@Column(name = "trip_route_id")
 	private String trip_route_id;
+
+	@Column(name = "id_fetch_mb")
+	private long id_fetch_mb;
+
+	@Column(name = "estatus")
+	private int estatus;
 
 	public long get_id() {
 		return _id;
@@ -178,7 +184,22 @@ public class DataMbCdmxUnidadUbicacion {
 		this.trip_route_id = trip_route_id;
 	}
 
-	
+	public long getId_fetch_mb() {
+		return id_fetch_mb;
+	}
+
+	public void setId_fetch_mb(long id_fetch_mb) {
+		this.id_fetch_mb = id_fetch_mb;
+	}
+
+	public int getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
+	}
+
 	@Override
 	public String toString() {
 		return "DataMbCdmxUnidadUbicacion [_id=" + _id + ", id=" + id + ", date_updated=" + date_updated
@@ -187,7 +208,7 @@ public class DataMbCdmxUnidadUbicacion {
 				+ position_longitude + ", geographic_point=" + geographic_point + ", position_speed=" + position_speed
 				+ ", position_odometer=" + position_odometer + ", trip_schedule_relationship="
 				+ trip_schedule_relationship + ", trip_id=" + trip_id + ", trip_start_date=" + trip_start_date
-				+ ", trip_route_id=" + trip_route_id + "]";
+				+ ", trip_route_id=" + trip_route_id + ", id_fetch_mb=" + id_fetch_mb + ", estatus=" + estatus + "]";
 	}
 
 }

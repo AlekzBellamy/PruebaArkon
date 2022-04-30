@@ -1,6 +1,5 @@
 package com.test.arkon.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import com.test.arkon.model.UbicacionUnidad;
 import com.test.arkon.repository.AlcaldiaRepository;
 import com.test.arkon.repository.UnidadesDisponiblesRepository;
 
-
 @CrossOrigin(origins = "http://localhost:7001")
 @RestController
 @RequestMapping("/api")
@@ -28,7 +26,7 @@ public class Controller {
 	public final static Logger LOG = LoggerFactory.getLogger(Controller.class);
 	@Autowired
 	AlcaldiaRepository alcaldiaRepository;
-	
+
 	@Autowired
 	UnidadesDisponiblesRepository disponiblesRepository;
 
@@ -40,11 +38,11 @@ public class Controller {
 			return new ResponseEntity<>(alcaldias, HttpStatus.OK);
 
 		} catch (Exception e) {
-			LOG.info("Error al recuperar Alcaldias recuperadas", e);
+			LOG.error("Error al recuperar Alcaldias recuperadas", e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@GetMapping(value = "/unidades")
 	public ResponseEntity<List<UbicacionUnidad>> getAllUnidades() {
 		try {
@@ -57,17 +55,16 @@ public class Controller {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@GetMapping(value = "/unidades/{id}")
 	public ResponseEntity<List<UbicacionUnidad>> getUnidadesById(@PathVariable("id") Integer id) {
 		try {
-			List<UbicacionUnidad> unidades =
-					disponiblesRepository.findByEstatusAndIdVehicle(1L, id);
+			List<UbicacionUnidad> unidades = disponiblesRepository.findByEstatusAndIdVehicle(1L, id);
 			LOG.info("Unidades recuperadas : {}", unidades.size());
 			return new ResponseEntity<>(unidades, HttpStatus.OK);
 
 		} catch (Exception e) {
-			LOG.info("Error al recuperar unidades recuperadas", e);
+			LOG.error("Error al recuperar unidades recuperadas", e);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}

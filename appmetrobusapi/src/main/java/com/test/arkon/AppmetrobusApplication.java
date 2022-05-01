@@ -8,6 +8,7 @@ public class AppmetrobusApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppmetrobusApplication.class, args);
+
 	}
 
 }

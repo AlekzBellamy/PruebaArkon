@@ -1,0 +1,21 @@
+2022-04-30 14:45:55,723 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusApplicationTests using Java 17.0.2 on DESKTOP-5EV7HCL with PID 31408 (started by nodez in C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi)
+2022-04-30 14:45:55,733 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.6, Spring v5.3.18
+2022-04-30 14:45:55,734 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"
+2022-04-30 14:46:16,429 INFO [main] org.springframework.boot.StartupInfoLogger : Started AppmetrobusApplicationTests in 21.827 seconds (JVM running for 25.885)
+2022-04-30 14:58:47,823 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusApplicationTests using Java 17.0.2 on DESKTOP-5EV7HCL with PID 14148 (started by nodez in C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi)
+2022-04-30 14:58:47,832 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.6, Spring v5.3.18
+2022-04-30 14:58:47,834 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"
+2022-04-30 14:59:05,856 INFO [main] org.springframework.boot.StartupInfoLogger : Started AppmetrobusApplicationTests in 19.885 seconds (JVM running for 25.981)
+2022-04-30 15:39:11,481 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusApplication using Java 17.0.2 on DESKTOP-5EV7HCL with PID 22452 (C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi\target\classes started by nodez in C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi)
+2022-04-30 15:39:11,489 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.6, Spring v5.3.18
+2022-04-30 15:39:11,490 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"
+2022-04-30 15:39:22,954 INFO [main] org.springframework.boot.StartupInfoLogger : Started AppmetrobusApplication in 13.786 seconds (JVM running for 14.971)
+2022-04-30 23:44:47,597 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusApplicationTests using Java 17.0.2 on DESKTOP-5EV7HCL with PID 31924 (started by nodez in C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi)
+2022-04-30 23:44:47,603 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.6, Spring v5.3.18
+2022-04-30 23:44:47,606 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"
+2022-04-30 23:45:05,348 INFO [main] org.springframework.boot.StartupInfoLogger : Started AppmetrobusApplicationTests in 19.493 seconds (JVM running for 24.176)
+2022-04-30 23:46:36,412 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusApplication using Java 17.0.2 on DESKTOP-5EV7HCL with PID 25608 (C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi\target\classes started by nodez in C:\Users\nodez\Documents\workspace-spring-tool\appmetrobusapi)
+2022-04-30 23:46:36,418 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.6, Spring v5.3.18
+2022-04-30 23:46:36,419 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"
+2022-04-30 23:46:46,662 INFO [main] org.springframework.boot.StartupInfoLogger : Started AppmetrobusApplication in 11.35 seconds (JVM running for 13.509)
+2022-04-30 23:48:28,048 INFO [http-nio-8080-exec-1] com.test.arkon.controller.Controller : Alcaldias recuperadas : 16

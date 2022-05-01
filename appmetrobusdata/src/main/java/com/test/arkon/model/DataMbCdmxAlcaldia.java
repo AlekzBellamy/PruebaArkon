@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "t_registro_alcaldia")
 public class DataMbCdmxAlcaldia {
@@ -40,7 +41,7 @@ public class DataMbCdmxAlcaldia {
 
 	@Column(name = "id_fetch_alcaldia")
 	private long id_fetch_alcaldia;
-	
+
 	@Column(name = "estatus")
 	private int estatus;
 

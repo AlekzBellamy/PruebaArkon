@@ -23,5 +23,13 @@ public interface AlcaldiaRepository extends JpaRepository<Alcaldia, Long>{
 	 * @return
 	 */
 	List<Alcaldia> findAll();
+	
+	/**
+	 * Metodo para obtener las alcaldias por estatus
+	 * @param estatus
+	 * @return
+	 */
+	@Query("SELECT a FROM Alcaldia a WHERE a.estatus  =:estatus and a.id  =:id")
+	Alcaldia findByEstatusAndId(@Param("estatus") long estatus, @Param("id") long id);
 
 }

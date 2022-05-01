@@ -1,18 +1,22 @@
 package com.test.arkon.service;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
 
 import com.test.arkon.model.DataMbCdmxAlcaldia;
 import com.test.arkon.model.DataMbCdmxUnidadUbicacion;
@@ -108,6 +112,7 @@ public class MetroBusDataService {
 			fetchAlcaldiaRepository.flush();
 			LOG.info("almacenamientoAlcaldias  DATA CDMX after flush dataAlcaldia : {}", dataAlcaldia);
 
+			
 			for (DataMbCdmxAlcaldia item : extractoAlcaldias.getResult().getRecords()) {
 				item.setId_fetch_alcaldia(dataAlcaldia.getId_fetch());
 				item.setEstatus(Estatus.ACTIVO.getId());

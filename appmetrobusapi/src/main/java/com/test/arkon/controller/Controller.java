@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.arkon.model.Alcaldia;
+import com.test.arkon.model.Respuesta;
 import com.test.arkon.model.UbicacionUnidad;
 import com.test.arkon.repository.AlcaldiaRepository;
 import com.test.arkon.repository.UnidadesDisponiblesRepository;
 import com.test.arkon.util.BusquedaCordenadas;
+import com.test.arkon.util.enums.ResultadoCodigo;
 
 @CrossOrigin(origins = "http://localhost:7001")
 @RestController
@@ -33,64 +35,84 @@ public class Controller {
 	UnidadesDisponiblesRepository unidadesDisponiblesRepository;
 
 	@GetMapping(value = "/alcaldias")
-	public ResponseEntity<List<Alcaldia>> getAllAlcaldias() {
+	public ResponseEntity<Respuesta<List<Alcaldia>>> getAllAlcaldias() {
+		Respuesta<List<Alcaldia>> respuesta = new Respuesta<List<Alcaldia>>();
 		try {
 			List<Alcaldia> alcaldias = alcaldiaRepository.findByEstatus(1L);
 
 			LOG.info("Alcaldias recuperadas : {}", alcaldias.size());
-			return new ResponseEntity<>(alcaldias, HttpStatus.OK);
+			respuesta.setResultado(alcaldias);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.error("Error al recuperar Alcaldias recuperadas", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping(value = "/unidades")
-	public ResponseEntity<List<UbicacionUnidad>> getAllUnidades() {
+	public ResponseEntity<Respuesta<List<UbicacionUnidad>>> getAllUnidades() {
+		Respuesta<List<UbicacionUnidad>> respuesta = new Respuesta<List<UbicacionUnidad>>();
 		try {
 			List<UbicacionUnidad> unidades = unidadesDisponiblesRepository.findByEstatus(1L);
 			LOG.info("Unidades recuperadas : {}", unidades.size());
-			return new ResponseEntity<>(unidades, HttpStatus.OK);
+			respuesta.setResultado(unidades);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.info("Error al recuperar unidades recuperadas", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping(value = "/unidades/{id}")
-	public ResponseEntity<List<UbicacionUnidad>> getUnidadesById(@PathVariable("id") Integer id) {
+	public ResponseEntity<Respuesta<List<UbicacionUnidad>>> getUnidadesById(@PathVariable("id") Integer id) {
+		Respuesta<List<UbicacionUnidad>> respuesta = new Respuesta<List<UbicacionUnidad>>();
 		try {
 			List<UbicacionUnidad> unidades = unidadesDisponiblesRepository.findByEstatusAndIdVehicle(1L, id);
 			LOG.info("Unidades recuperadas : {}", unidades.size());
-			return new ResponseEntity<>(unidades, HttpStatus.OK);
+			respuesta.setResultado(unidades);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.error("Error al recuperar unidades recuperadas", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@GetMapping(value = "/unidades/alcaldia/{id}")
-	public ResponseEntity<List<UbicacionUnidad>> getAllUnidadesByIdAlcaldia(@PathVariable("id") Integer id) {
+	public ResponseEntity<Respuesta<List<UbicacionUnidad>>> getAllUnidadesByIdAlcaldia(@PathVariable("id") Integer id) {
+		Respuesta<List<UbicacionUnidad>> respuesta = new Respuesta<List<UbicacionUnidad>>();
 		try {
 			Alcaldia alcaldia = alcaldiaRepository.findByEstatusAndId(1L, id);
 			List<UbicacionUnidad> unidades = unidadesDisponiblesRepository.findByEstatus(1L);
-			List<UbicacionUnidad> unidadesFiltro =new ArrayList<>();
+			List<UbicacionUnidad> unidadesFiltro = new ArrayList<>();
 			for (UbicacionUnidad ubicacionUnidad : unidades) {
-				if(BusquedaCordenadas.existeUnidadEnAlcaldia(ubicacionUnidad.getGeolocalizacionPoint(), alcaldia.getGeolocalizacionShape()))
-				{
+				if (BusquedaCordenadas.existeUnidadEnAlcaldia(ubicacionUnidad.getGeolocalizacionPoint(),
+						alcaldia.getGeolocalizacionShape())) {
 					unidadesFiltro.add(ubicacionUnidad);
-					
+
 				}
 			}
 			LOG.info("Unidades recuperadas : {}", unidadesFiltro.size());
-			return new ResponseEntity<>(unidadesFiltro, HttpStatus.OK);
+			respuesta.setResultado(unidadesFiltro);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.info("Error al recuperar unidades recuperadas", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

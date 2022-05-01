@@ -55,9 +55,19 @@ http://localhost:8080/api/alcaldias
 http://localhost:8080/api/unidades/170
 http://localhost:8080/api/unidades/
 
+http://localhost:8080/api/unidades/alcaldia/2
+
 test lectura api cdmx
 http://localhost:8081/data/consultaAlcaldias
 http://localhost:8081/data/consultaUnidades
 http://localhost:8081/data/altaAlcaldias
 http://localhost:8081/data/altaUnidades
 
+
+
+
+Unidades CDMX
+https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=ad360a0e-b42f-482c-af12-1fd72140032e
+
+Alcaldias CDMX
+https://datos.cdmx.gob.mx/api/3/action/datastore_search?resource_id=e4a9b05f-c480-45fb-a62c-6d4e39c5180e

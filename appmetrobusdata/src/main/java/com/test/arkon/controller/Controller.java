@@ -1,5 +1,6 @@
 package com.test.arkon.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.arkon.model.DataMbCdmxAlcaldia;
 import com.test.arkon.model.DataMbCdmxUnidadUbicacion;
 import com.test.arkon.model.ResponseDataMbCdmx;
+import com.test.arkon.model.Respuesta;
 import com.test.arkon.service.MetroBusDataService;
+import com.test.arkon.util.enums.ResultadoCodigo;
 
 /**
  * Controlador para ejecutar de forma manual el inicio de persistencia de
@@ -40,15 +43,19 @@ public class Controller {
 	 * @return
 	 */
 	@GetMapping(value = "/consultaAlcaldias")
-	public ResponseEntity<ResponseDataMbCdmx<DataMbCdmxAlcaldia>> getAllAlcaldias() {
+	public ResponseEntity<Respuesta<ResponseDataMbCdmx<DataMbCdmxAlcaldia>>> getAllAlcaldias() {
+		Respuesta<ResponseDataMbCdmx<DataMbCdmxAlcaldia>> respuesta = new Respuesta<ResponseDataMbCdmx<DataMbCdmxAlcaldia>>();
 		try {
 			ResponseDataMbCdmx<DataMbCdmxAlcaldia> response = busDataService.obtenerAlcaldiasMbCdmx();
 			LOG.info("alcladias DATA CDMX recuperadas : {}", response.getResult().getRecords());
-			return new ResponseEntity<>(response, HttpStatus.OK);
+			respuesta.setResultado(response);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
 			LOG.error("Error al probar consultar alcladias DATA CDMX", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -59,18 +66,22 @@ public class Controller {
 	 */
 
 	@GetMapping(value = "/consultaUnidades")
-	public ResponseEntity<ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion>> getAllUnidades() {
+	public ResponseEntity<Respuesta<ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion>>> getAllUnidades() {
+		Respuesta<ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion>> respuesta = new Respuesta<ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion>>();
 		try {
 			ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion> response = busDataService.obtenerUnidadesMbCdmx();
 			LOG.info("unidades DATA CDMX recuperadas : {}", response.getResult().getRecords());
-			return new ResponseEntity<>(response, HttpStatus.OK);
+			respuesta.setResultado(response);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
 			LOG.error("Error al probar consultar unidades DATA CDMX", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	/**
 	 * Metodo para hacer llamado del consumo de CDMX DATA Alcaldias
 	 * 
@@ -78,18 +89,23 @@ public class Controller {
 	 */
 
 	@GetMapping(value = "/altaAlcaldias")
-	public ResponseEntity<List<DataMbCdmxAlcaldia>> persistirAlcaldias() {
+	public ResponseEntity<Respuesta<List<DataMbCdmxAlcaldia>>> persistirAlcaldias() {
+		Respuesta<List<DataMbCdmxAlcaldia>> respuesta = new Respuesta<List<DataMbCdmxAlcaldia>>();
 		try {
 			List<DataMbCdmxAlcaldia> alcaldiasRegistradas = busDataService.almacenamientoAlcaldias();
 			LOG.info("unidades DATA CDMX alcaldiasRegistradas : {}", alcaldiasRegistradas);
-			return new ResponseEntity<>(alcaldiasRegistradas, HttpStatus.OK);
+			respuesta.setResultado(alcaldiasRegistradas);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.error("Error al registrarAlcaldias DATA CDMX", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	/**
 	 * Metodo para hacer llamado del consumo de CDMX DATA Unidades
 	 * 
@@ -97,15 +113,20 @@ public class Controller {
 	 */
 
 	@GetMapping(value = "/altaUnidades")
-	public ResponseEntity<List<DataMbCdmxUnidadUbicacion>> persistirUnidades() {
+	public ResponseEntity<Respuesta<List<DataMbCdmxUnidadUbicacion>>> persistirUnidades() {
+		Respuesta<List<DataMbCdmxUnidadUbicacion>> respuesta = new Respuesta<List<DataMbCdmxUnidadUbicacion>>();
 		try {
 			List<DataMbCdmxUnidadUbicacion> unidadesRegistrados = busDataService.almacenamientoUnidades();
 			LOG.info("unidades DATA CDMX unidadesRegistrados : {}", unidadesRegistrados);
-			return new ResponseEntity<>(unidadesRegistrados, HttpStatus.OK);
+			respuesta.setResultado(unidadesRegistrados);
+			return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
 		} catch (Exception e) {
+			respuesta.setCodigo(ResultadoCodigo.INCORRECTO_PROCESO.getId());
+			respuesta.setDescripcion(ResultadoCodigo.INCORRECTO_PROCESO.getDescripcion());
+			respuesta.setResultado(new ArrayList<>());
 			LOG.error("Error al registrarUnidades DATA CDMX", e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

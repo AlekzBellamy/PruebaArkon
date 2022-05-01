@@ -1,6 +1,6 @@
 package com.test.arkon.util;
 
-import java.awt.geom.Path2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +10,12 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.arkon.model.Geometry;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 
 public class BusquedaCordenadas {
 
@@ -47,28 +53,30 @@ public class BusquedaCordenadas {
 	 */
 	private static boolean existePuntoEnShape(String puntoBusqueda, List<List<Double>> listaShapePuntos) {
 
-		Path2D path = new Path2D.Double();
+		final GeometryFactory gf = new GeometryFactory();
+		final ArrayList<Coordinate> shapePoints = new ArrayList<Coordinate>();
 
-		List<Double> puntoShapeInicio = new ArrayList<>();
-		boolean primerPunto = true;
 		for (List<Double> shapePuntos : listaShapePuntos) {
-			if (primerPunto) {
-				puntoShapeInicio = shapePuntos;
-				path.moveTo(shapePuntos.get(1), shapePuntos.get(0));
-				primerPunto = false;
-			} else {
-
-				path.lineTo(shapePuntos.get(1), shapePuntos.get(0));
-			}
+			shapePoints.add(new Coordinate(shapePuntos.get(1), shapePuntos.get(0)));
 
 		}
-		// Cerramos la figura geométrica en caso los puntos proporcionados no lo hagan.
-		path.closePath();
-		// Verificamos si las coordenadas están dentro con el método contains
-		boolean resultado = path.contains(puntoShapeInicio.get(1), puntoShapeInicio.get(0));
+		final Polygon polygon = gf.createPolygon(new LinearRing(
+				new CoordinateArraySequence(shapePoints.toArray(new Coordinate[shapePoints.size()])), gf), null);
+
+		String[] splitCordenadaBusqueda = puntoBusqueda.split(COMA);
+		double puntoA = Double.parseDouble(splitCordenadaBusqueda[0]);
+		double puntoB = Double.parseDouble(splitCordenadaBusqueda[1]);
+		final Coordinate coord = new Coordinate(puntoA, puntoB);
+		final Point pointBusqueda = gf.createPoint(coord);
+		LOG.info("existePuntoEnShape puntoBusqueda : {}", puntoBusqueda);
+		boolean resultado= pointBusqueda.within(polygon);
+		LOG.info("existePuntoEnShape polygon : {}", polygon);
 		LOG.info("existePuntoEnShape resultado : {}", resultado);
-		LOG.info("existePuntoEnShape resultado2 test : {}", path.contains(-98.99706316999995, 19.226423519999157));
-		return true;
+		
+		final Coordinate coordTest = new Coordinate( 19.226423519999157, -98.99706316999995);
+		final Point pointBusquedaTest = gf.createPoint(coordTest);
+		LOG.info("existePuntoEnShape resultado2 test : {}", pointBusquedaTest.within(polygon));
+		return resultado;
 	}
 
 }

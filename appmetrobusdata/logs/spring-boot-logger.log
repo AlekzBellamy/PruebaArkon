@@ -2285,3 +2285,6 @@ Caused by: java.sql.SQLException: Field '_id' doesn't have a default value
 2022-05-02 14:39:00,530 INFO [scheduling-1] com.test.arkon.service.MetroBusDataService : almacenamientoUnidades  DATA CDMX dataUbicacionUnidad : com.test.arkon.model.FetchDataUbicacionUnidad@223f284e
 2022-05-02 14:39:00,539 INFO [scheduling-1] com.test.arkon.service.MetroBusDataService : almacenamientoUnidades  DATA CDMX after flush dataUbicacionUnidad : com.test.arkon.model.FetchDataUbicacionUnidad@223f284e
 2022-05-02 14:39:01,980 INFO [scheduling-1] com.test.arkon.service.MetroBusDataService : almacenamientoUnidades correcto Unidades de DATA CDMX
+2022-05-02 14:45:03,568 INFO [main] org.springframework.boot.StartupInfoLogger : Starting AppmetrobusdataApplicationTests using Java 17.0.2 on DESKTOP-5EV7HCL with PID 21096 (started by nodez in C:\Users\nodez\Documents\GitHub\PruebaArkon\appmetrobusdata)
+2022-05-02 14:45:03,572 DEBUG [main] org.springframework.boot.StartupInfoLogger : Running with Spring Boot v2.6.7, Spring v5.3.19
+2022-05-02 14:45:03,573 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to 1 default profile: "default"

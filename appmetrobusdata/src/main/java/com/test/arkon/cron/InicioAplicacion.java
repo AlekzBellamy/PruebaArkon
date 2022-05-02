@@ -20,6 +20,7 @@ public class InicioAplicacion implements ApplicationListener<ApplicationReadyEve
 		LOG.info("onApplicationEvent");
 		try {
 			dataService.almacenamientoAlcaldias();
+			dataService.almacenamientoUnidades();
 		} catch (Exception e)
 
 		{

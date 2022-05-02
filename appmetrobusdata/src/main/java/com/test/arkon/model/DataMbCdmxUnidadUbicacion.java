@@ -13,10 +13,10 @@ import javax.persistence.Table;
 @Table(name = "t_registro_mb")
 public class DataMbCdmxUnidadUbicacion {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long _id;
 
+	private long _id;
+	
+	@Id
 	@Column(name = "id")
 	private long id;
 

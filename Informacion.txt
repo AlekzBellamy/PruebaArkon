@@ -1,5 +1,6 @@
-
-
+Generacion de JAR con mvn, 
+clean install  -Dmaven.test.skip=true
+Se dejan comentarios en  aplication.properties para hacer pruebas en local/desarrollo
 
 
 #Conociendo Docker

@@ -1,0 +1,48 @@
+#Conociendo Docker
+
+#obteniendo imagenes existentes el comando apoya a descargarla 
+	docker pull mysql  
+
+#obteniendo las imagenes descargadas 
+	docker images
+
+#Creando una red de comunicacion a la BD y aplicaciones
+	docker network create red-spring-boot
+
+#Creando volumen para BD
+#	-- limpiando volumenes  docker volume prune
+	docker volume create mysql-mb-data
+
+corriendo una instancia de la imagen
+#	docker run
+#		-d --> ejecucion en segundo plano
+#		-p  A:B --> A-> puerto de salida exterior B - puerto interno
+#		--name --> un nombre al contenedor
+#		-e MYSQL_ROOT_PASSWORD --> ? parece ser un parametropropio de la iamgen ,, averiguando
+#		--network  comunicacion entre contenedores
+#		-v volume creado anteriormente para persistir la informacion
+	
+	 docker run --name mysql_mb_data  -d  -p 3306:3306  --network red-spring-boot -v mysql-mb-data -e MYSQL_ROOT_PASSWORD=123456789A   mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+
+#Ejecutamos el script de creacion de BD  para la generacion de tablas  1 catalogo, y 2 usuarios
+#	/bd/generacionBD.sql 
+#	usuarios
+#	 userapp
+#	 12345678A	 
+#	 userconsulta
+#	 12345678A
+	 
+#APLICACION DATA para persistir informacion 
+#Creando imagen para aplicativo data(quien actualiza la informaciona   BD) , se ejecuta dentro del codigo en donde existe el archivo Docker file
+	docker build -t spring-boot-data-mb .
+	
+#Corriendo la imagen creada del aplicativo anteriormente
+	docker run --network red-spring-boot  --name spring_boot_data_mb -p 8081:8081 spring-boot-data-mb:latest
+	
+#APLICACION API para consultar informcion
+#Creando imagen para aplicativo api(quien consultara la informaciona   BD) , se ejecuta dentro del codigo en donde existe el archivo Docker file
+	docker build -t spring-boot-api-mb .
+	
+#Corriendo la imagen creada del aplicativo anteriormente
+	docker run --network red-spring-boot  --name spring_boot_api_mb -p 8081:8081 spring-boot-api-mb:latest
+	

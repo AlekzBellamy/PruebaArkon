@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class FetchDataAlcaldia {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_fetch")
 	private long id_fetch;
 	

@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         8.0.28 - MySQL Community Server - GPL
+-- Versión del servidor:         8.0.29 - MySQL Community Server - GPL
 -- SO del servidor:              Linux
 -- HeidiSQL Versión:             12.0.0.6468
 -- --------------------------------------------------------
@@ -24,11 +24,14 @@ USE `metrobusMX`;
 DROP TABLE IF EXISTS `c_estatus`;
 CREATE TABLE IF NOT EXISTS `c_estatus` (
   `id_estatus` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `descripcion` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_estatus`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.c_estatus: ~2 rows (aproximadamente)
+INSERT INTO `c_estatus` (`id_estatus`, `descripcion`) VALUES
+	(1, 'Activo'),
+	(2, 'Inactivo');
 
 -- Volcando estructura para tabla metrobusMX.fetchdata_alcaldias
 DROP TABLE IF EXISTS `fetchdata_alcaldias`;
@@ -37,20 +40,20 @@ CREATE TABLE IF NOT EXISTS `fetchdata_alcaldias` (
   `fecha_registro` datetime DEFAULT NULL,
   `estatus_proceso` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_fetch`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.fetchdata_alcaldias: ~2 rows (aproximadamente)
 
 -- Volcando estructura para tabla metrobusMX.fetchdata_unidades_mb
 DROP TABLE IF EXISTS `fetchdata_unidades_mb`;
 CREATE TABLE IF NOT EXISTS `fetchdata_unidades_mb` (
   `id_fetch` int NOT NULL AUTO_INCREMENT,
   `fecha_registro` datetime DEFAULT NULL,
-  `estatus_proceso` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estatus_proceso` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_fetch`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.fetchdata_unidades_mb: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla metrobusMX.hibernate_sequence
 DROP TABLE IF EXISTS `hibernate_sequence`;
@@ -58,19 +61,21 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.hibernate_sequence: ~0 rows (aproximadamente)
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+	(0);
 
 -- Volcando estructura para tabla metrobusMX.t_registro_alcaldia
 DROP TABLE IF EXISTS `t_registro_alcaldia`;
 CREATE TABLE IF NOT EXISTS `t_registro_alcaldia` (
   `id_alcaldia` int NOT NULL AUTO_INCREMENT,
   `id` int DEFAULT NULL,
-  `nomgeo` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nomgeo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cve_mun` int DEFAULT NULL,
   `cve_ent` int DEFAULT NULL,
   `cvegeo` int DEFAULT NULL,
-  `geo_point_2d` longtext COLLATE utf8mb4_unicode_ci,
-  `geo_shape` longtext COLLATE utf8mb4_unicode_ci,
+  `geo_point_2d` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `geo_shape` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `municipio` int DEFAULT NULL,
   `id_fetch_alcaldia` int DEFAULT NULL,
   `estatus` int DEFAULT '1',
@@ -78,9 +83,9 @@ CREATE TABLE IF NOT EXISTS `t_registro_alcaldia` (
   PRIMARY KEY (`id_alcaldia`) USING BTREE,
   KEY `FK1_estatus` (`estatus`),
   CONSTRAINT `FK1_estatus` FOREIGN KEY (`estatus`) REFERENCES `c_estatus` (`id_estatus`) ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.t_registro_alcaldia: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla metrobusMX.t_registro_mb
 DROP TABLE IF EXISTS `t_registro_mb`;
@@ -91,9 +96,9 @@ CREATE TABLE IF NOT EXISTS `t_registro_mb` (
   `vehicle_id` int DEFAULT NULL,
   `vehicle_label` int DEFAULT NULL,
   `vehicle_current_status` int DEFAULT NULL,
-  `position_latitude` longtext COLLATE utf8mb4_unicode_ci,
-  `position_longitude` longtext COLLATE utf8mb4_unicode_ci,
-  `geographic_point` longtext COLLATE utf8mb4_unicode_ci,
+  `position_latitude` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `position_longitude` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `geographic_point` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `position_speed` int DEFAULT NULL,
   `position_odometer` int DEFAULT NULL,
   `trip_schedule_relationship` int DEFAULT NULL,
@@ -106,9 +111,9 @@ CREATE TABLE IF NOT EXISTS `t_registro_mb` (
   PRIMARY KEY (`id_unidad`) USING BTREE,
   KEY `estatus` (`estatus`),
   CONSTRAINT `FK1estatus` FOREIGN KEY (`estatus`) REFERENCES `c_estatus` (`id_estatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Volcando datos para la tabla metrobusMX.t_registro_mb: ~0 rows (aproximadamente)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

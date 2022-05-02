@@ -1,11 +1,9 @@
 package com.test.arkon.service;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 
 import com.test.arkon.model.DataMbCdmxAlcaldia;
 import com.test.arkon.model.DataMbCdmxUnidadUbicacion;
@@ -98,7 +95,7 @@ public class MetroBusDataService {
 		return restTemplate.exchange(uriBuilder, HttpMethod.GET, null, responseType).getBody();
 	}
 
-	public List<DataMbCdmxAlcaldia> almacenamientoAlcaldias() {
+	public List<DataMbCdmxAlcaldia> almacenamientoAlcaldias() throws Exception {
 		try {
 			ResponseDataMbCdmx<DataMbCdmxAlcaldia> extractoAlcaldias = obtenerAlcaldiasMbCdmx();
 			LOG.info("almacenamientoAlcaldias  DATA CDMX isSuccess : {}", extractoAlcaldias.isSuccess());
@@ -112,7 +109,6 @@ public class MetroBusDataService {
 			fetchAlcaldiaRepository.flush();
 			LOG.info("almacenamientoAlcaldias  DATA CDMX after flush dataAlcaldia : {}", dataAlcaldia);
 
-			
 			for (DataMbCdmxAlcaldia item : extractoAlcaldias.getResult().getRecords()) {
 				item.setId_fetch_alcaldia(dataAlcaldia.getId_fetch());
 				item.setEstatus(Estatus.ACTIVO.getId());
@@ -127,12 +123,12 @@ public class MetroBusDataService {
 			dataAlcaldia.setEstatus_proceso(EstatusProceso.INCORRECTO.getDescripcion());
 			fetchAlcaldiaRepository.save(dataAlcaldia);
 			LOG.error("Error al almacenar Alcaldias de DATA CDMX", e);
-			return new ArrayList<>();
+			throw new Exception(e);
 		}
 
 	}
 
-	public List<DataMbCdmxUnidadUbicacion> almacenamientoUnidades() {
+	public List<DataMbCdmxUnidadUbicacion> almacenamientoUnidades() throws Exception {
 		try {
 			ResponseDataMbCdmx<DataMbCdmxUnidadUbicacion> extractoUnidades = obtenerUnidadesMbCdmx();
 			LOG.info("almacenamientoUnidades  DATA CDMX isSuccess : {}", extractoUnidades.isSuccess());
@@ -161,7 +157,7 @@ public class MetroBusDataService {
 			dataUbicacionUnidad.setEstatus_proceso(EstatusProceso.INCORRECTO.getDescripcion());
 			fetchUnidadUbicacionRepository.save(dataUbicacionUnidad);
 			LOG.error("almacenamientoUnidades Error al almacenar Unidades de DATA CDMX", e);
-			return new ArrayList<>();
+			throw new Exception(e);
 		}
 
 	}

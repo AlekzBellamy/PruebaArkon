@@ -1,0 +1,19 @@
+#Endpoint API
+#Obtener alcaldias disponibles
+http://localhost:8080/api/alcaldias
+#Obtener unidad por id
+http://localhost:8080/api/unidades/170
+#obtener unidades disponibles
+http://localhost:8080/api/unidades/
+#obtener unidades disponible spor  id alcaldia
+http://localhost:8080/api/unidades/alcaldia/2
+
+#Endpoint DATA aplicativo recoleccion de información
+#consulta Alcaldias desde cdmx data center
+http://localhost:8081/data/consultaAlcaldias
+#consulta Unidades desde cdmx data center
+http://localhost:8081/data/consultaUnidades
+#consulta y da de alta las alcaldias desde cdmx data center
+http://localhost:8081/data/altaAlcaldias
+#consulta y da de alta las unidades desde cdmx data center
+http://localhost:8081/data/altaUnidades

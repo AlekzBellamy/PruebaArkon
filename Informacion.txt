@@ -1,3 +1,7 @@
+
+
+
+
 #Conociendo Docker
 
 #obteniendo imagenes existentes el comando apoya a descargarla 
@@ -44,12 +48,22 @@ corriendo una instancia de la imagen
 	docker build -t spring-boot-api-mb .
 	
 #Corriendo la imagen creada del aplicativo anteriormente
-	docker run --network red-spring-boot  --name spring_boot_api_mb -p 8081:8081 spring-boot-api-mb:latest
+	docker run --network red-spring-boot  --name spring_boot_api_mb -p 8083:8083 spring-boot-api-mb:latest
 	
 	
 	
-	
-	
+#KUBERNETES
+kubectl run k_mysql_mb_data --image=mysql_mb_data --port=3306 --replicas=1 
+kubectl expose deployment k_mysql_mb_data --type=NodePort
+
+
+kubectl run k_spring_boot_data_mb --image=spring_boot_data_mb --port=8081 --replicas=2
+kubectl expose deployment k_spring-boot-data-mb --type=NodePort
+
+kubectl run k_spring_boot_api_mb --image=spring_boot_api_mb --port=8083 --replicas=2
+kubectl expose deployment k_spring_boot_api_mb --type=NodePort
+
+
 	
 	
 	
